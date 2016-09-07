@@ -5,6 +5,7 @@
 #pragma once
 
 #include <slack/types.h>
+#include <sqlite3pp/sqlite3pp.h>
 
 class token_storage
 {
@@ -18,11 +19,12 @@ public:
         slack::user_id bot_id;
     };
 
-    token_storage(const std::string &mongo_url) {}
+    token_storage(const std::string &db_name);
 
     void set_token(const std::string &team_id, const token_info &token);
 
     //not super fond of this in/out second parameter.
     bool get_token_for_team(const std::string &team_id, token_info &token);
 private:
+    sqlite3pp::database db_;
 };

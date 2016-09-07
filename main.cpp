@@ -100,15 +100,8 @@ int main(int argc, char* argv[])
         exit(-1);
     }
 
-    auto mongo_uri = std::getenv("MONGO_URI");
-    if(!mongo_uri)
-    {
-        LOG(FATAL) << "Please specify MONGO_URI in the environment!";
-        exit(-1);
-    }
-
     // Now, let's stand up a storage layer
-    token_storage store{mongo_uri};
+    token_storage store{"tokens.db"};
 
     // Next, let's stand up a webserver
     // Let's not worry about TLS for now, as we'll stand up behind ngrok for now
